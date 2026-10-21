@@ -25,7 +25,7 @@ def soma_horario(horario1,horario2):
 
     if novo_m >= 60:
         nova_h += 1
-        novo_m = novo_m % 24
+        novo_m = novo_m % 60
 
     if nova_h >= 24:
          nova_h = nova_h % 24
@@ -38,20 +38,17 @@ def subtrai_horario(horario1,horario2):
     horas1, minutos1, segundos1 = organiza(horario1)
     horas2, minutos2, segundos2 = organiza(horario2)
 
-    horas1, minutos1, segundos1 = organiza(horario1)
-    horas2, minutos2, segundos2 = organiza(horario2)
-
     nova_h = horas1 - horas2
     novo_m = minutos1 - minutos2
     novo_s = segundos1 - segundos2
     
     if novo_s < 0:
-        novo_m = 1
+        novo_m -= 1
         novo_s = novo_s % 60
 
     if novo_m < 0:
-        nova_h += 1
-        novo_m = novo_m % 24
+        nova_h -= 1
+        novo_m = novo_m % 60
 
     if nova_h < 0:
          nova_h = nova_h % 24
@@ -78,6 +75,8 @@ def compara_horario(horario1,horario2):
                 horario_maior = horario1
             elif segundos2 > segundos1:
                 horario_maior = horario2
+            else:
+                horario_maior = horario1
                 
     return horario_maior
 
@@ -115,10 +114,10 @@ def test_04():
 	assert tique("22:43:45") == "22:43:46"
      
 def test_05():
-	assert subtrai_horario("22:43:45","23:46:51") == "23:01:54"
+	assert subtrai_horario("22:43:45","23:46:51") == "22:56:54"
      
 def test_06():
-	assert soma_horario("22:43:45","10:28:00") == "09:23:45"
+	assert soma_horario("22:43:45","10:28:00") == "09:11:45"
      
 def test_07():
 	assert compara_horario("23:22:13","23:58:12") == "23:58:12"
